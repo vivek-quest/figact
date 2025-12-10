@@ -1,39 +1,55 @@
-Here is a polished, professional-quality **README.md** for your `figact` CLI — clear, clean, and ready for npm/GitHub.
+# 🧩 **FigAct — Figma → React Design System Sync (CLI)**
 
-You can copy this directly into your project.
+**FigAct** is a lightweight, developer-friendly CLI that bridges your **Figma Design System** with your **React codebase**.
 
----
+It automatically pulls design tokens, styles, components, variables, and other design data from Figma — then converts them into real, usable frontend artifacts.
 
-# 🧩 **figact — Figma → React Style Generator (CLI)**
-
-**figact** is a lightweight, TypeScript-powered CLI tool that fetches style information from your **Figma file** and converts it into **CSS** or **utility classes** inside your React project.
-
-Perfect for teams who want to sync Figma design tokens (colors, fills, text styles, etc.) into real code — automatically.
+> Today, FigAct focuses on **importing Figma styles** (colors, fills, effects, text styles) into React-ready output.
+> But the roadmap unlocks: **components, variables, design tokens, utilities, TypeScript modules**, and full design-system sync.
 
 ---
 
-## 🚀 Features
+## 🚀 **Why FigAct?**
 
-* ⚡ **Fast CLI** (TypeScript, compiled to Node.js)
-* 🔐 Supports **environment variables** inside `.figactrc`
-* 🎯 Override config via **CLI flags**
-* 🗂 Output clean, organized CSS to your project
-* 📁 Custom output directory + file naming
-* 🎨 Extract FILL / TEXT / EFFECT styles (more to come)
-* 🧪 Dry-run mode for safe testing
-* 🔧 Perfect for CI pipelines
+Modern design systems live in Figma — but engineering still manually copies:
+
+* Colors
+* Typography
+* Spacing
+* Effects / shadows
+* Component properties
+* Tokens
+
+FigAct eliminates that manual work by generating the code **directly from your design source of truth**.
+
+### **Current capabilities**
+
+✔ Export Figma **styles** → React project
+✔ Generate CSS files or style modules
+✔ Supports filtering by style names
+✔ Environment-variable aware `.figactrc`
+✔ CLI overrides for tokens, file keys, etc.
+✔ Safe dry-run mode
+✔ Output directory + file naming control
+
+### **Future capabilities (in-progress)**
+
+🚧 Extract design **variables** (Figma 2024 variables API)
+🚧 Generate **React components** from Figma components
+🚧 Token → CSS variable → JS module sync
+🚧 Tailwind preset generation
+🚧 React Native style output
+🚧 Full design-system export including grids, primitives, component props
 
 ---
 
-## 📦 Installation
-
-Install as a dev dependency:
+# 📦 Installation
 
 ```bash
 npm install -D figact
 ```
 
-Or via yarn:
+or
 
 ```bash
 yarn add -D figact
@@ -41,73 +57,69 @@ yarn add -D figact
 
 ---
 
-## ⚙️ Configuration (required)
+# ⚙️ Configuration
 
 Create a `.figactrc` file in your project root:
 
 ```json
 {
   "personalAccessToken": "$FIGMA_TOKEN",
-  "fileKey": "$FIGMA_FILE_KEY",
+  "fileKey": "$FIGMA_FILE",
   "outDir": "src/styles/figact"
 }
 ```
 
-### 🔐 Using environment variables
+### 🔐 Environment variable support
 
-If a value starts with `$`, figact will automatically resolve it from `process.env`.
+Any value starting with `$` is resolved from `process.env`.
 
 Example:
 
 ```json
 {
-  "personalAccessToken": "$FIGMA_TOKEN",
-  "fileKey": "$FIGMA_FILE"
+  "personalAccessToken": "$FIGMA_PAT",
+  "fileKey": "$FIGMA_FILE_ID"
 }
 ```
 
-Set them in your terminal or CI:
+Set them:
 
 ```bash
-export FIGMA_TOKEN="your-figma-pat"
-export FIGMA_FILE="your-file-key"
+export FIGMA_PAT="my-secret-token"
+export FIGMA_FILE_ID="xxxxxxx"
 ```
 
-### 🛑 Important
-
-If your `.figactrc` contains secrets, **add it to `.gitignore`**:
-
-```
-.figactrc
-```
+💡 **Add `.figactrc` to `.gitignore`** if you store secrets inside it.
 
 ---
 
-## ▶️ Usage
+# ▶️ Usage
 
-Generate styles:
+### Generate all FILL styles:
 
 ```bash
 npx figact styles --type=FILL
 ```
 
-### With options:
+### Filter by style names:
 
 ```bash
-npx figact styles \
-  --type=FILL \
-  --outDir=src/styles/tokens \
-  --filename=colors.css \
-  --prefix=fg
+npx figact styles --type=FILL --name='Primary,Secondary,Brand Accent'
 ```
 
-### Dry run (no files written)
+### Custom output directory and filename:
+
+```bash
+npx figact styles --type=TEXT --outDir=src/tokens --filename=text.css
+```
+
+### Dry-run (no files written):
 
 ```bash
 npx figact styles --type=FILL --dry-run
 ```
 
-### Override config via CLI flags
+### Override config tokens via CLI:
 
 ```bash
 npx figact styles \
@@ -117,48 +129,72 @@ npx figact styles \
 
 ---
 
-## 🧩 Commands
+# 🧩 Commands
 
-### 🔧 `styles`
+## `styles`
 
-Generate style output based on Figma design tokens.
+Generate CSS/React styles from Figma design system tokens.
 
-**Options**
+**Options:**
 
-| Flag                | Description                                   |          |                           |
-| ------------------- | --------------------------------------------- | -------- | ------------------------- |
-| `--type <FILL       | TEXT                                          | EFFECT>` | What style type to export |
-| `--name <name>`     | Comma-separated list of style names to filter |          |                           |
-| `--outDir <dir>`    | Output directory (defaults from config)       |          |                           |
-| `--filename <file>` | Output filename (ex: `styles.css`)            |          |                           |
-| `--prefix <prefix>` | Class name prefix                             |          |                           |
-| `--dry-run`         | Show result without writing files             |          |                           |
+| Flag                | Description                            |          |                            |
+| ------------------- | -------------------------------------- | -------- | -------------------------- |
+| `--type <FILL       | TEXT                                   | EFFECT>` | Figma style type to export |
+| `--name <list>`     | Comma-separated style names to include |          |                            |
+| `--outDir <dir>`    | Output directory                       |          |                            |
+| `--filename <file>` | Output file name                       |          |                            |
+| `--prefix <prefix>` | Prefix class names                     |          |                            |
+| `--dry-run`         | Print result without saving            |          |                            |
 
----
-
-## 🛠 Examples
-
-### Export only specific colors:
-
-```bash
-npx figact styles --type=FILL --name=Primary,Secondary
-```
-
-### Export text styles:
-
-```bash
-npx figact styles --type=TEXT
-```
-
-### Export effect styles:
-
-```bash
-npx figact styles --type=EFFECT
-```
+More commands coming soon…
 
 ---
 
-## 🧪 Local Development (for contributors)
+# 🔮 Vision & Roadmap
+
+FigAct is designed to grow into a **full design system pipeline**, enabling:
+
+### 🟦 1. Token Sync
+
+* Colors
+* Typography
+* Spacing
+* Radii
+* Grids
+* Shadows
+* Variables
+
+### 🟩 2. Code Generation
+
+* React components mapped from Figma components
+* Token-driven utility modules
+* Tailwind/Tailwind plugin generation
+* SCSS/CSS variables
+* React Native styles
+
+### 🟧 3. Continuous Integration
+
+* Rebuild styles when Figma updates
+* Design system versioning
+* Changelog detection from design diffs
+
+### 🟪 4. Team Collaboration
+
+* Onboarding-friendly CLI
+* Framework-agnostic builds
+* Composable tokens and modules
+
+If your team uses Figma as a design source of truth, FigAct will serve as your engineering sync tool.
+
+---
+
+# 🛠 Local Development (for contributors)
+
+Run in dev mode:
+
+```bash
+npm run dev -- styles --type=FILL
+```
 
 Build:
 
@@ -166,13 +202,7 @@ Build:
 npm run build
 ```
 
-Run without building:
-
-```bash
-npm run dev -- styles --type=FILL
-```
-
-Test pack (simulate npm publish):
+Create a pack to test installation:
 
 ```bash
 npm pack
@@ -187,44 +217,13 @@ figact styles --dry-run
 
 ---
 
-## 📘 Config Reference
-
-| Key                             | Description                           |
-| ------------------------------- | ------------------------------------- |
-| `personalAccessToken`           | Figma personal access token           |
-| `fileKey`                       | Figma file key (from URL)             |
-| `outDir`                        | Output directory for generated styles |
-| `styleFilePattern` *(optional)* | Custom naming pattern                 |
-
-Supports nested objects and deep `$ENV` replacement.
-
----
-
-## 🧱 Roadmap
-
-* [ ] Support for Gradients
-* [ ] Support for Figma Variables API
-* [ ] React Native output mode
-* [ ] Token grouping & naming strategies
-* [ ] Multiple file outputs per style type
-
----
-
-## 🤝 Contributing
+# 🤝 Contributing
 
 PRs, issues, and feature suggestions are welcome!
+If your design system has a special structure, open an issue — FigAct aims to be flexible.
 
 ---
 
-## 📄 License
+# 📄 License
 
 MIT © 2025
-
----
-
-If you want, I can also generate:
-
-✅ Badges (npm version, downloads, license, etc.)
-✅ A “Quick Start GIF” showing usage
-✅ A documentation wiki structure
-Just tell me!
