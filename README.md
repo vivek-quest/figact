@@ -4,9 +4,6 @@
 
 It automatically pulls design tokens, styles, components, variables, and other design data from Figma — then converts them into real, usable frontend artifacts.
 
-> Today, FigAct focuses on **importing Figma styles** (colors, fills, effects, text styles) into React-ready output.
-> But the roadmap unlocks: **components, variables, design tokens, utilities, TypeScript modules**, and full design-system sync.
-
 ---
 
 ## 🚀 **Why FigAct?**
@@ -35,10 +32,15 @@ FigAct eliminates that manual work by generating the code **directly from your d
 ### **Future capabilities (in-progress)**
 
 🚧 Extract design **variables** (Figma 2024 variables API)
+
 🚧 Generate **React components** from Figma components
+
 🚧 Token → CSS variable → JS module sync
+
 🚧 Tailwind preset generation
+
 🚧 React Native style output
+
 🚧 Full design-system export including grids, primitives, component props
 
 ---
