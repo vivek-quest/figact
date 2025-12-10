@@ -7,6 +7,8 @@ import type { CLICommonOptions, FigActConfig } from '../types';
 import * as commands from '../commands';
 import  'dotenv/config';
 import { OptionalKeys } from '../types/utils';
+import Message from '../utils/Message';
+import { bigBanner } from './banner';
 
 const loadConfig = (thisCommand: Command, actionCommand: Command) => {
     const opts = thisCommand.opts<CLICommonOptions>();
@@ -14,7 +16,7 @@ const loadConfig = (thisCommand: Command, actionCommand: Command) => {
     let config: OptionalKeys<FigActConfig, 'personalAccessToken' | 'fileKey'> = {};
 
     opts.config ||= path.resolve(process.cwd(), '.figactrc');
-
+    
     if (fs.existsSync(opts.config)) {
         const raw = fs.readFileSync(opts.config, 'utf8');
         config = JSON.parse(raw) as FigActConfig;
@@ -26,7 +28,7 @@ const loadConfig = (thisCommand: Command, actionCommand: Command) => {
     const resolveRecurssive = (config: Record<string, any>) => {
         for (let key in config) {
             if (typeof config[key] === 'string' && config[key].startsWith('$')) {
-                config[key] = process.env[config[key].slice(1)];
+                config[key] = process.env[config[key].slice(1)] ?? config[key];
             } else if (typeof config[key] === 'object') {
                 resolveRecurssive(config[key]);
             }
@@ -35,8 +37,8 @@ const loadConfig = (thisCommand: Command, actionCommand: Command) => {
 
     resolveRecurssive(config);
 
-    if (!config.personalAccessToken) throw new Error("personalAccessToken is required");
-    if (!config.fileKey) throw new Error("fileKey is required");
+    if (!config.personalAccessToken) Message.personalAccessTokenMissingTemplate().exit()
+    if (!config.fileKey) Message.fileKeyMissingTemplate().exit()
 
     actionCommand.config = config as FigActConfig;
 }
@@ -50,6 +52,7 @@ program
     .option('--config <path>', 'path to .figactrc JSON file (overrides default in project root)')
     .option('--personal-access-token <token>', 'Figma personal access token (overrides config.personalAccessToken)')
     .option('--file-key <key>', 'Figma file key (overrides config.fileKey)')
+    .addHelpText('beforeAll', bigBanner)
 
 program.hook('preAction', loadConfig);
 

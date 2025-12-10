@@ -66,10 +66,10 @@ const calculateGradientPosition = (transform?: any): string => {
 }
 
 export default class FigmaUtils {
-    static toClassName(name: string, prefix?: string) {
+    static slugify(name: string, prefix?: string) {
         if (!name) return "";
 
-        let className = name
+        name = name
             .trim()
             .toLowerCase()
             .replace(/[\/\s_]+/g, "-")      // convert spaces, slashes, underscores → hyphen
@@ -77,10 +77,10 @@ export default class FigmaUtils {
             .replace(/\-+/g, "-")           // collapse repeated hyphens
             .replace(/^\-+|\-+$/g, "");     // trim hyphens
 
-        if (/^[0-9]/.test(className)) className = "x-" + className;
-        if (prefix) className = `${prefix}-${className}`;
+        if (/^[0-9]/.test(name)) name = "x-" + name;
+        if (prefix) name = `${prefix}-${name}`;
 
-        return className;
+        return name;
     }
 
     static fillToCSSValue(fill: any) {
@@ -100,5 +100,9 @@ export default class FigmaUtils {
             default:
                 return null; 
         }
+    }
+
+    static CSSStringify(styles: Record<string, any>) {
+        return  Object.entries(styles).map(([sel, rules]) => rules ? `${sel}{\n${Object.entries(rules).map(([k,v])=>`\t${k}:${v};`).join("\n")}\n}` : sel).join("");
     }
 }
