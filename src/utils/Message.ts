@@ -59,8 +59,29 @@ export default class Message {
         process.exit(code);
     }
 
-    static personalAccessTokenMissingTemplate() {
-        return new Message({
+    static create(options: MessageOptions) {
+        return new Message(options);
+    }
+
+    static build(options: MessageOptions) {
+        return new Message(options).build();
+    }
+
+    static print(options: MessageOptions) {
+        return new Message(options).print();
+    }
+
+    static exit(options: MessageOptions, code = options.type === 'error' ? 1 : 0) {
+        return new Message(options).exit(code);
+    }
+
+    static templates = {
+        unsupportedStyleType: (styleType: string) => new Message({
+            type: 'error',
+            title: 'Unsupported Style Type',
+            description: `Style type ${styleType} is not supported yet.`,
+        }),
+        personalAccessTokenMissing: () => new Message({
             type: 'error',
             title: 'Missing Required Configuration',
             description: 'Personal Access Token is required but not provided.',
@@ -73,11 +94,8 @@ export default class Message {
                     ]
                 ]
             ]
-        })
-    }
-
-    static fileKeyMissingTemplate() {
-        return new Message({
+        }),
+        fileKeyMissing: () => new Message({
             type: 'error',
             title: 'Missing Required Configuration',
             description: 'File Key is required but not provided.',

@@ -40,6 +40,9 @@ export default async (cmdOpts: CLIStylesOptions, cmd: RequireKeys<Command, 'conf
                     css[':root'][`--${slug}`] = cssValue;
 
                     break;
+                default:
+                    Message.templates.unsupportedStyleType(style.styleType).exit();
+                    return;
             }
         }
 
@@ -48,20 +51,16 @@ export default async (cmdOpts: CLIStylesOptions, cmd: RequireKeys<Command, 'conf
         await fs.mkdir(outDir, { recursive: true });
         await fs.writeFile(path.join(outDir, cmdOpts.filename), FigmaUtils.CSSStringify(css), 'utf8');
 
-        const message = new Message({
+        Message.exit({
             type: 'success',
             title: 'Styles generated successfully',
             description: `Styles generated at ${outDir}/${cmdOpts.filename}.\nImport it to use the styles.`,
         });
-
-        message.exit();
     } catch (error: any) {
-        console.log(error)
-        const message = new Message({
+        Message.exit({
             type: 'error',
             title: 'Failed to generate styles',
             description: error.message ?? 'Unknown error',
         });
-        message.exit();
     }
 }

@@ -37,8 +37,8 @@ const loadConfig = (thisCommand: Command, actionCommand: Command) => {
 
     resolveRecurssive(config);
 
-    if (!config.personalAccessToken) Message.personalAccessTokenMissingTemplate().exit()
-    if (!config.fileKey) Message.fileKeyMissingTemplate().exit()
+    if (!config.personalAccessToken) Message.templates.personalAccessTokenMissing().exit()
+    if (!config.fileKey) Message.templates.fileKeyMissing().exit()
 
     actionCommand.config = config as FigActConfig;
 }
