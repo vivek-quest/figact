@@ -1,0 +1,4 @@
+{
+    "personalAccessToken": "$FIGMA_TOKEN",
+    "fileKey": "$FIGMA_FILE_KEY"
+}

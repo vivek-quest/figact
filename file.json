@@ -1,0 +1,147 @@
+{
+  "document": {
+    "id": "0:0",
+    "name": "Document",
+    "type": "DOCUMENT",
+    "scrollBehavior": "SCROLLS",
+    "children": [
+      {
+        "id": "0:1",
+        "name": "Cover",
+        "type": "CANVAS",
+        "scrollBehavior": "SCROLLS",
+        "children": [],
+        "backgroundColor": {
+          "r": 0.11764705926179886,
+          "g": 0.11764705926179886,
+          "b": 0.11764705926179886,
+          "a": 1
+        },
+        "prototypeStartNodeID": null,
+        "flowStartingPoints": [],
+        "prototypeDevice": {
+          "type": "NONE",
+          "rotation": "NONE"
+        }
+      },
+      {
+        "id": "586:8341",
+        "name": "---------------------",
+        "type": "CANVAS",
+        "scrollBehavior": "SCROLLS",
+        "children": [],
+        "backgroundColor": {
+          "r": 0.18987630307674408,
+          "g": 0.18987630307674408,
+          "b": 0.18987630307674408,
+          "a": 1
+        },
+        "prototypeStartNodeID": null,
+        "flowStartingPoints": [],
+        "prototypeDevice": {
+          "type": "NONE",
+          "rotation": "NONE"
+        }
+      },
+      {
+        "id": "15:2",
+        "name": "Color",
+        "type": "CANVAS",
+        "scrollBehavior": "SCROLLS",
+        "children": [],
+        "backgroundColor": {
+          "r": 0.11764705926179886,
+          "g": 0.11764705926179886,
+          "b": 0.11764705926179886,
+          "a": 1
+        },
+        "prototypeStartNodeID": null,
+        "flowStartingPoints": [],
+        "prototypeDevice": {
+          "type": "NONE",
+          "rotation": "NONE"
+        }
+      },
+      {
+        "id": "16:3",
+        "name": "Typography",
+        "type": "CANVAS",
+        "scrollBehavior": "SCROLLS",
+        "children": [],
+        "backgroundColor": {
+          "r": 0.11764705926179886,
+          "g": 0.11764705926179886,
+          "b": 0.11764705926179886,
+          "a": 1
+        },
+        "prototypeStartNodeID": null,
+        "flowStartingPoints": [],
+        "prototypeDevice": {
+          "type": "NONE",
+          "rotation": "NONE"
+        }
+      }
+    ]
+  },
+  "components": {},
+  "componentSets": {},
+  "schemaVersion": 0,
+  "styles": {
+    "922:2369": {
+      "key": "bca455d6095e82aa315373eaaffad3d56bb7d6df",
+      "name": "button/fill",
+      "styleType": "FILL",
+      "remote": false,
+      "description": ""
+    },
+    "922:2378": {
+      "key": "67faaa6019ee92d49ea94a033eb9948a02480589",
+      "name": "button/stroke",
+      "styleType": "FILL",
+      "remote": false,
+      "description": ""
+    },
+    "922:4481": {
+      "key": "a2f7db1a03850dd78fee27939e5fd870114d6acf",
+      "name": "button/strokegrey",
+      "styleType": "FILL",
+      "remote": false,
+      "description": ""
+    },
+    "1434:7727": {
+      "key": "6e80e04b46a7312f806e82d676105f01acfab10c",
+      "name": "Button/fill",
+      "styleType": "FILL",
+      "remote": false,
+      "description": ""
+    },
+    "1434:7931": {
+      "key": "940e8c5d4d620badae61f00d75c6bfd701d736c6",
+      "name": "Brand/Gradient",
+      "styleType": "FILL",
+      "remote": false,
+      "description": ""
+    },
+    "1443:11077": {
+      "key": "b16b2962e033fe4811cba85eb1432c220be7137b",
+      "name": "Button/fill",
+      "styleType": "FILL",
+      "remote": false,
+      "description": ""
+    },
+    "3533:1626": {
+      "key": "4a4da2256a20d37cc6ad03215d2fb719f023af5a",
+      "name": "Greta Gradiant",
+      "styleType": "FILL",
+      "remote": false,
+      "description": ""
+    }
+  },
+  "name": "Quest Design System demo",
+  "lastModified": "2025-12-10T09:01:02Z",
+  "thumbnailUrl": "https://s3-alpha.figma.com/thumbnails/4ad7edb6-404f-4505-9fb2-d8032d29c7aa?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQ4GOSFWCREKL5A5X%2F20251207%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20251207T120000Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=44ef869af48dae0ccaf874413569f74cc82f09a1b11e733f948203b27d47aeb1",
+  "version": "2295851687481221652",
+  "role": "viewer",
+  "editorType": "figma",
+  "linkAccess": "inherit"
+}
