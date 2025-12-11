@@ -12,7 +12,8 @@ export default class Figma extends Cacheable {
 
     constructor({ personalAccessToken }: Partial<FigmaOptions> = {}) {
         super({ 
-            storage: 'file',
+            storage: 'memory',
+            ttl: 1000 * 60 * 60 // 1 hour
         });
 
         if (!personalAccessToken) throw new Error("personalAccessToken is required");
@@ -74,6 +75,7 @@ export default class Figma extends Cacheable {
         }
         return null;
     }
+
     static findAllNodesDFS(root: Node, callback: (node: Node) => boolean): Node[] {
         const results = [];
         if (callback(root)) results.push(root);
@@ -82,6 +84,7 @@ export default class Figma extends Cacheable {
         }
         return results;
     }
+
     static traverseNodeDFS(root: Node, callback: (node: Node) => void) {
         callback(root);
         for (const child of root.children ?? []) {

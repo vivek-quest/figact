@@ -8,6 +8,7 @@ export type CLICommonOptions = {
   config?: string;
   personalAccessToken?: string;
   fileKey?: string;
+  cache: boolean;
 };
 
 export type CLIStylesOptions = {

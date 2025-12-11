@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import type { CLIStylesOptions } from '../types';
+import type { CLICommonOptions, CLIStylesOptions } from '../types';
 import Figma from '../utils/figma';
 import FigmaUtils from '../utils/figmaUtils';
 import { RequireKeys } from '../types/utils';
@@ -9,8 +9,10 @@ import Message from '../utils/Message';
 
 export default async (cmdOpts: CLIStylesOptions, cmd: RequireKeys<Command, 'config'>) => {
     try {
+        const parentCmdOpts = cmd.parent?.opts<CLICommonOptions>();
+
         const { config } = cmd;
-        
+
         cmdOpts.name &&= cmdOpts.name.toString().split(',');
 
         const css: Record<string, any> = {
@@ -19,7 +21,9 @@ export default async (cmdOpts: CLIStylesOptions, cmd: RequireKeys<Command, 'conf
 
         const figma = new Figma({ personalAccessToken: config.personalAccessToken });
 
-        const file = await figma.getFile(config.fileKey);
+        const file = await figma.getFile(config.fileKey, {
+            cacheControl: { cache: parentCmdOpts?.cache }
+        });
 
         const styles = Object.entries(file.styles).map(([id, style]) => ({ id, ...style }));
 
@@ -60,7 +64,7 @@ export default async (cmdOpts: CLIStylesOptions, cmd: RequireKeys<Command, 'conf
         Message.exit({
             type: 'error',
             title: 'Failed to generate styles',
-            description: error.message ?? 'Unknown error',
+            description: error.message ?? error?.err ?? 'Unknown error',
         });
     }
 }

@@ -52,6 +52,7 @@ program
     .option('--config <path>', 'path to .figactrc JSON file (overrides default in project root)')
     .option('--personal-access-token <token>', 'Figma personal access token (overrides config.personalAccessToken)')
     .option('--file-key <key>', 'Figma file key (overrides config.fileKey)')
+    .option('--no-cache', 'disable caching', true)
     .addHelpText('beforeAll', bigBanner)
 
 program.hook('preAction', loadConfig);
